@@ -23,7 +23,6 @@ exports.edit = function(callback){
     repository.updateNode(node).then(({data,headers,status}) => {
       newNode = Object.assign({}, node);
       newNode._rev = data.rev;
-      console.log(newNode);
       callback(newNode);
     });
   };
