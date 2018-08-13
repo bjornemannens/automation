@@ -36,7 +36,7 @@ module.exports = function(io) {
       });*/
 
       node.findAll(function(nodes){
-        transmitter.updateNode(nodes[0]._id);
+        transmitter.updateNodeById(nodes[0]._id);
         socket.emit('nodes', {nodes: nodes})
       });
 
@@ -53,17 +53,17 @@ module.exports = function(io) {
 
       socket.on('node edit', node.edit(function(node) {
         sendNewNode(node);
-        transmitter.updateNode(node._id);
+        transmitter.updateNodeById(node._id);
       }));
 
       socket.on('interval create', interval.create(function(interval) {
         sendIntervalsToAll();
-        transmitter.updateNode(interval.nodeId)
+        transmitter.updateNodeById(interval.nodeId)
       }));
 
       socket.on('interval remove', interval.remove(function(interval) {
         sendRemovedInterval(interval);
-        transmitter.updateNode(interval.nodeId)
+        transmitter.updateNodeById(interval.nodeId)
       }));
     });
 };
