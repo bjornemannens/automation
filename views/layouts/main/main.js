@@ -31,6 +31,6 @@ function sendCreateInterval(interval) {
 
 }
 
-function sendRemoveInterval(id,_rev) {
-  socket.emit('interval remove', {_id: id, _rev:_rev});
+function sendRemoveInterval(interval) {
+  socket.emit('interval remove', {interval: interval});
 }

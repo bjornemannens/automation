@@ -91,12 +91,12 @@ Vue.component('interval-container', {
       <div class='clearfix'></div>
       <button
         class='intervalRemove'
-        v-on:click="remove(interval._id, interval._rev)">Remove</button>
+        v-on:click="remove(interval)">Remove</button>
       <div class='clearfix'></div>
     </div>
   `, methods : {
-    remove : function (id, _rev) {
-      window.sendRemoveInterval(id, _rev);
+    remove : function (interval) {
+      window.sendRemoveInterval(interval);
     }
   }
 })

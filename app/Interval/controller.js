@@ -41,8 +41,9 @@ module.exports.findAll = async (callback) => {
 
 module.exports.remove = function(callback) {
   return async ( data ) => {
-    repository.removeInterval(data).then(({data,headers,stauts}) => {
-      callback({_id: data.id});
+    const { interval } = data;
+    repository.removeInterval(interval).then(({data,headers,stauts}) => {
+      callback({_id:interval._id, nodeId:interval.nodeId});
     });
   }
 }

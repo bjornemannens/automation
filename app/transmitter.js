@@ -13,13 +13,14 @@ const updateNode = async (nodeId) => {
         nodeIntervals = intervals.filter(i => i.nodeId == nodeId);
         var time = getTime();
         var active = false;
+
         nodeIntervals.map(i => {
           if (i.start < i.end){
-            if (time > i.start && time > i.end)
+            if (time >= i.start && time < i.end)
               active = true;
 
           } else {
-            if (time > i.start || time > i.end)
+            if (time >= i.start || time >= i.end)
               active = true;
           }
         });
