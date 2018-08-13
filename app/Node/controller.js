@@ -3,7 +3,7 @@ const repository = require( "./repository" );
 
 const find = async (id, callback) => {
   repository.findNode(id).then(({data, headers, status}) => {
-    callback(data)
+    callback(data);
   })
 }
 
@@ -15,6 +15,7 @@ const findAll = async (callback) => {
         _rev: n.value._rev,
         type: n.value.type,
         name: n.value.name,
+        pin: n.value.pin,
         control: n.value.control,
         controlPower: n.value.controlPower
       })
