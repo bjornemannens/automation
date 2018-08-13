@@ -1,8 +1,8 @@
 const Node = require('./Node/controller');
 const Interval = require('./Interval/controller');
-//const Gpio = require ('onoff').Gpio;
+const Gpio = require ('onoff').Gpio;
 
-//const devicePins = [new Gpio(4, 'out')];
+const devicePins = [new Gpio(4, 'out')];
 
 const updateNodeById = async (nodeId) => {
   Node.find(nodeId, function(node) {
@@ -19,7 +19,7 @@ function updateNode(node) {
 }
 
 function normalUpdate(node) {
-  //devicePins[node.pin].writeSync(node.controlPower ? 1 : 0);
+  devicePins[node.pin].writeSync(node.controlPower ? 1 : 0);
 }
 
 function intervalUpdate(node){
@@ -38,7 +38,7 @@ function intervalUpdate(node){
           active = true;
       }
     });
-    //devicePins[node.pin].writeSync(active ? 1 : 0);
+    devicePins[node.pin].writeSync(active ? 1 : 0);
   })
 }
 
@@ -55,5 +55,5 @@ function getTime() {
 }
 
 module.exports = {
-  updateNode
+  updateNodeById
 }
