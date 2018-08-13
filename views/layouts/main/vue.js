@@ -40,7 +40,7 @@ Vue.component('node-container', {
       },
       switchControl : function (node, toggle) {
         newNode = Object.assign({}, node);
-        newNode.power = toggle;
+        newNode.control = toggle;
         sendNode(newNode);
       },
       switchControlPower : function (node, toggle) {
