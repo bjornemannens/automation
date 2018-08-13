@@ -53,17 +53,17 @@ module.exports = function(io) {
 
       socket.on('node edit', node.edit(function(node) {
         sendNewNode(node);
-        transmitter.update(node._id);
+        transmitter.updateNode(node._id);
       }));
 
       socket.on('interval create', interval.create(function(interval) {
         sendIntervalsToAll();
-        transmitter.update(interval.nodeId)
+        transmitter.updateNode(interval.nodeId)
       }));
 
       socket.on('interval remove', interval.remove(function(interval) {
         sendRemovedInterval(interval);
-        transmitter.update(interval.nodeId)
+        transmitter.updateNode(interval.nodeId)
       }));
     });
 };
