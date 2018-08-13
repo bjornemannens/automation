@@ -1,6 +1,13 @@
 const repository = require( "./repository" );
 
-exports.findAll = async (callback) => {
+
+const find = async (id, callback) => {
+  repository.findNode(id).then(({data, headers, status}) => {
+    callback(data)
+  })
+}
+
+const findAll = async (callback) => {
   repository.findNodes().then(({data,headers,status}) => {
     nodes = data.rows.map(n =>
       ({
@@ -17,7 +24,7 @@ exports.findAll = async (callback) => {
   });
 }
 
-exports.edit = function(callback){
+const edit = function(callback){
   return async ( data ) => {
     const { node } = data;
     repository.updateNode(node).then(({data,headers,status}) => {
@@ -26,4 +33,10 @@ exports.edit = function(callback){
       callback(newNode);
     });
   };
+}
+
+module.exports = {
+  find,
+  findAll,
+  edit
 }

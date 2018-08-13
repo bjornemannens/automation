@@ -1,4 +1,4 @@
-const /*transmitter = require('./transmitter'),*/
+const transmitter = require('./transmitter'),
   node = require('./Node/controller'),
   interval = require('./Interval/controller');
 
@@ -28,14 +28,15 @@ function sendNewNode(node){
 module.exports = function(io) {
     io.on('connection', function(socket) {
       sockets.push(socket);
-      // Used in order to log incoming socket messages
-      /*
+
+      /* Used in order to log incoming socket messages
       socket.use(function(msg, next){
         console.log(msg);
         next();
       });*/
 
       node.findAll(function(nodes){
+        transmitter.updateNode(nodes[0]._id);
         socket.emit('nodes', {nodes: nodes})
       });
 
@@ -44,8 +45,7 @@ module.exports = function(io) {
       })
 
       socket.on('disconnect', function() {
-        console.log('user disconnected');
-        //Remove the socket connection from the list
+        //console.log('user disconnected');
         var pos = sockets.socket;
         sockets.splice(pos, 1);
 
@@ -53,14 +53,17 @@ module.exports = function(io) {
 
       socket.on('node edit', node.edit(function(node) {
         sendNewNode(node);
+        transmitter.update(node._id);
       }));
 
       socket.on('interval create', interval.create(function(interval) {
         sendIntervalsToAll();
+        transmitter.update(interval.nodeId)
       }));
 
       socket.on('interval remove', interval.remove(function(interval) {
         sendRemovedInterval(interval);
+        transmitter.update(interval.nodeId)
       }));
     });
 };
