@@ -27,8 +27,13 @@ function sendNewNode(node){
 
 module.exports = function(io) {
     io.on('connection', function(socket) {
-      console.log('a user connected');
       sockets.push(socket);
+      // Used in order to log incoming socket messages
+      /*
+      socket.use(function(msg, next){
+        console.log(msg);
+        next();
+      });*/
 
       node.findAll(function(nodes){
         socket.emit('nodes', {nodes: nodes})
@@ -44,11 +49,6 @@ module.exports = function(io) {
         var pos = sockets.socket;
         sockets.splice(pos, 1);
 
-      });
-
-      socket.use(function(msg, next){
-        console.log(msg);
-        next();
       });
 
       socket.on('node edit', node.edit(function(node) {
