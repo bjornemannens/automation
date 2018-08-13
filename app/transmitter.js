@@ -2,7 +2,7 @@ const Node = require('./Node/controller');
 const Interval = require('./Interval/controller');
 const Gpio = require ('onoff').Gpio;
 
-const devicePins = [new Gpio(17, 'out')];
+const devicePins = [new Gpio(4, 'out')];
 
 const updateNode = async (nodeId) => {
   Node.find(nodeId, function(node) {
