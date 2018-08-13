@@ -24,7 +24,7 @@ function normalUpdate(node) {
 
 function intervalUpdate(node){
   Interval.findAll(function(intervals) {
-    nodeIntervals = intervals.filter(i => i.nodeId == nodeId);
+    nodeIntervals = intervals.filter(i => i.nodeId == node._id);
     var time = getTime();
     var active = false;
 
