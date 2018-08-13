@@ -1,0 +1,98 @@
+<style>
+.column {
+    float: left;
+    padding: 5px;
+}
+</style>
+
+<h3 id="t1"></h3>
+<button onclick="toggle(0)">Click Me!</button>
+
+<div>
+<button class=""onclick="toggle(0)">Click Me!</button>
+
+<h3 id="t2"></h3>
+<button onclick="toggle(1)">Click Me!</button>
+
+<h3 id="t3"></h3>
+<button onclick="toggle(2)">Click Me!</button>
+
+<script>
+  var s = "Switch ";
+
+  var t1 = document.getElementById("t1");
+  var t2 = document.getElementById("t2");
+  var t3 = document.getElementById("t3");
+
+  var titles = [t1,t2,t3];
+
+  for (i = 0; i < 3; i++){
+    update(i, {{on}}[i])
+  }
+
+  function toggle(i) {
+    postData("/", i , (status, data) => {
+      update(i, data);
+    });
+  }
+
+  function update(i, on){
+    on = parseInt(on);
+    console.log(on);
+    titles[i].innerHTML = s + i + ": " + (on ? "on" : "off");
+    console.log(titles[i].innerHTML);
+
+  }
+
+  function postData(url, postData, fn) {
+    var method = "POST";
+    // You REALLY want shouldBeAsync = true.
+    // Otherwise, it'll block ALL execution waiting for server response.
+    var shouldBeAsync = true;
+    var request = new XMLHttpRequest();
+    request.onload = function () {
+       var status = request.status; // HTTP response status, e.g., 200 for "200 OK"
+       var data = request.responseText; // Returned data, e.g., an HTML document.
+       fn(status, data);
+    }
+
+    request.open(method, url, shouldBeAsync);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify({data: postData}));
+
+  }
+</script>
+
+<script>
+
+  function newNode(i) {
+    return { index: i }
+  }
+
+  function newToggleNode(i, toggle) {
+    var node = newNode(i);
+    node.toggle = toggle;
+    return node;
+  }
+
+  function newIntervalNode(i, s, e) {
+    var node = newNode(i);
+    node.interval = newInterval(s, e);
+    return node;
+  }
+
+  function newIntervalIndexNode(i, interInd) {
+    var node = newNode(i);
+    node.intervalIndex = interInd;
+    return node;
+  }
+
+  function newTime(hour, min) {
+    return {h: hour, m: min};
+  }
+
+  function newInterval(s, e) {
+    return {start: s, end: e}
+  }
+
+</script>

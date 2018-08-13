@@ -1,0 +1,57 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  var socket = io();
+  socket.on('new node', function(msg) {
+    console.log(msg);
+  }
+  function sendNodeCreate() {
+    socket.emit('node create',
+      {
+        name:"testnode",
+        control:true,
+        controlPower:true,
+      }
+    );
+  }
+
+  function sendDirContr(id, toggle) {
+    socket.emit('direct control', {id : id, toggle: toggle});
+  }
+
+  function sendDirToggle(id, toggle) {
+    socket.emit('direct toggle', {id : id, toggle: toggle});
+  }
+
+  function sendAddInterval(nodeId, startH, startM, endH, endM) {
+    var start = getMinutes(startH, startM);
+    var end = getMinutes(endH, endM);
+    socket.emit('add interval',
+      {nodeId: nodeId, start: start, end: end});
+
+  }
+
+  function sendRemoveInterval(id) {
+    socket.emit('remove interval', {id:id});
+  }
+
+  function getMinutes(hour, minute){
+    return hour * 60 + minute;
+  }
+
+  function getTime(minutes){
+    var minute = minutes % 60;
+    var hour = (minutes - minute) / 60;
+    return {hour: hour, minute: minute};
+  }
+
+</script>
+
+test
+
+<button onClick="sendNodeCreate()">create Node</button>
+<button onClick="sendDirContr(0, false)">Dir contr off</button>
+<button onClick="sendDirToggle(0, true)">Dir toggle on</button>
+<button onClick="sendDirToggle(0, false)">Dir toggle off</button>
+<button onClick="sendAddInterval(0, 0, 0, 23, 59)">Add interval</button>
+<button onClick="sendRemoveInterval(0)">Remove interval</button>

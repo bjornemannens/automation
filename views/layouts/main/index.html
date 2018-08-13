@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Home control</title>
+  </head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="node.css">
+    <link rel="stylesheet" type="text/css" href="interval.css">
+  </head>
+
+  <body>
+  <div id="nodes">
+    <node-list
+    v-bind:nodes='nodes'
+    v-bind:intervals='hMIntervals'></node-list>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="vue.js"></script>
+  <script src="main.js"></script>
+  </body>
+</html>

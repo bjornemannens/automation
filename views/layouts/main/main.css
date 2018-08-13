@@ -1,0 +1,20 @@
+body {
+ background-color: #FFFFFF;
+ font-family: "Helvetica", Helvetica, serif;
+ touch-action: manipulation;
+
+}
+
+div.clearfix {
+  clear:both;
+}
+
+button {
+  border: none;
+  background-color: #71c7e7;
+  color:white;
+  text-align: center;
+  font-size: 16px;
+  margin-left: auto;
+  border-radius: 3px;
+}
